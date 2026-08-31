@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pixel Battle</title>
+    <link id="favicon" rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+</head>
+<style>
+    .button-style {
+        box-shadow: none;
+        border: 0;
+        width: 15px;
+        height: 15px;
+        outline: none;
+        border-style: outset;
+        margin: 0;
+        padding: 0;
+    }
+
+</style>
+<body style="background-color: rgb(223, 156, 233);">
+    <div style="float: left;width: 80%;padding-top: 40px;margin-left: 100px;">
+        <button class="button-style" style="background-color: red;" type="submit" id="red"></button>
+        <button class="button-style" style="background-color: orange;" type="submit" id="orange"></button>
+        <button class="button-style" style="background-color: yellow;" type="submit" id="yellow"></button>
+        <button class="button-style" style="background-color: green;" type="submit" id="green"></button>
+        <button class="button-style" style="background-color: skyblue;" type="submit" id="skyblue"></button>
+        <button class="button-style" style="background-color: blue;" type="submit" id="blue"></button>
+        <button class="button-style" style="background-color: purple;" type="submit" id="purple"></button>
+        <button class="button-style" style="background-color: grey;" type="submit" id="grey"></button>
+        <button class="button-style" style="background-color: brown;" type="submit" id="brown"></button>
+        <button class="button-style" style="background-color: black;" type="submit" id="black"></button>
+        <button class="button-style" style="background-color: white;" type="submit" id="white"></button>
+    </div>
+    <canvas id="myCanvas" width="1200px" height="740px" style="margin-left: 100px;background-color: white;"></canvas>
+
+<script src="/static/js/pixel_draw.js"></script>
+</body>
+</html>
