@@ -1,49 +1,56 @@
 
 const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-let socket = new WebSocket(`${wsProtocol}//${window.location.host}/ws`);
+const socket = new WebSocket(`${wsProtocol}//${window.location.host}/ws`);
 
-const canvas=document.getElementById('myCanvas');
-const pixels=canvas.getContext("2d");
+const canvas = document.getElementById('myCanvas');
+const pixels = canvas.getContext('2d');
 pixels.strokeStyle = 'rgb(0,0,0)';
-pixels.strokeRect(0, 0, 1199.5, 739.5);
-let color='rgb(0, 0, 0)';
-const pix={}
 
-socket.onerror=function(error){(console.error('Ошибка подключения',error))};
+const pageHight = 739.5;
+const pageWidth = 1199.5;
+pixels.strokeRect(0, 0, pageWidth, pageHight);
+
+let color = 'rgb(0, 0, 0)';
+
+const pixelWidth = 10;
+const pixelHight = 10;
+
+socket.onerror = function(error){(console.error('Ошибка подключения',error))};
 
 
 document.getElementById('myCanvas').addEventListener('click', function(e) {
-    const x=e.offsetX
-    const y=e.offsetY
-    const size_pixel=10
-    const roundedX = Math.floor(x / size_pixel) * size_pixel;
-    const roundedY = Math.floor(y / size_pixel) * size_pixel;
+    const pix = {};
+
+    const x = e.offsetX;
+    const y = e.offsetY;
+    const sizePixel = 10;
+    const roundedX = Math.floor(x / sizePixel) * sizePixel;
+    const roundedY = Math.floor(y / sizePixel) * sizePixel;
     pixels.fillStyle = color;
 
-    pix.id=`${roundedX}${roundedY}`
-    pix.glob_color=color;
-    pix.pozic_x=roundedX;
-    pix.pozic_y=roundedY;
+    pix.id = `${roundedX}${roundedY}`;
+    pix.globColor = color;
+    pix.pozicX = roundedX;
+    pix.pozicY = roundedY;
 
-    socket.send(JSON.stringify(pix))
+    socket.send(JSON.stringify(pix));
 
-    pixels.fillRect(roundedX, roundedY, 10, 10);
+    pixels.fillRect(roundedX, roundedY, pixelHight, pixelWidth);
 });
 
 
 
-function pull_color(t) {
-    const x = t.pozic_x;
-    const y = t.pozic_y;
-    const new_color=t.glob_color;
-    pixels.fillStyle = new_color;
-    pixels.fillRect(x,y , 10, 10);
+function pullColor(object) {
+    const x = object.pozicX;
+    const y = object.pozicY;
+    const newColor = object.globColor;
+    pixels.fillStyle = newColor;
+    pixels.fillRect( x, y, pixelHight, pixelWidth);
 }
 
 socket.onmessage = function(event) {
-  const const_data=event.data;
-  const s=JSON.parse(const_data);
-  pull_color(s);
+  const object = JSON.parse(event.data);
+  pullColor(object);
 };
 
 
