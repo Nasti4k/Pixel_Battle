@@ -54,36 +54,23 @@ socket.onmessage = function(event) {
 };
 
 
-document.getElementById('red').addEventListener('click', function() {
-    color='rgb(255, 0, 0)'
-});
-document.getElementById('orange').addEventListener('click', function() {
-    color='rgb(255, 165, 0)'
-});
-document.getElementById('yellow').addEventListener('click', function() {
-    color='rgb(255, 255, 0)'
-});
-document.getElementById('green').addEventListener('click', function() {
-    color='rgb(0, 128, 0)'
-});
-document.getElementById('skyblue').addEventListener('click', function() {
-    color='rgb(135, 206, 235)'
-});
-document.getElementById('blue').addEventListener('click', function() {
-    color='rgb(0, 0, 255)'
-});
-document.getElementById('purple').addEventListener('click', function() {
-    color='rgb(128, 0, 128)'
-});
-document.getElementById('grey').addEventListener('click', function() {
-    color='rgb(128, 128, 128)'
-});
-document.getElementById('brown').addEventListener('click', function() {
-    color='rgb(165, 42, 42)'
-});
-document.getElementById('black').addEventListener('click', function() {
-    color='rgb(0, 0, 0)'
-});
-document.getElementById('white').addEventListener('click', function() {
-    color='rgb(255, 255, 255)'
+
+const colorMap = {
+    'red': 'rgb(255, 0, 0)',
+    'orange': 'rgb(255, 165, 0)',
+    'yellow': 'rgb(255, 255, 0)',
+    'green': 'rgb(0, 128, 0)',
+    'skyblue': 'rgb(135, 206, 235)',
+    'blue': 'rgb(0, 0, 255)',
+    'purple': 'rgb(128, 0, 128)',
+    'grey': 'rgb(128, 128, 128)',
+    'brown': 'rgb(165, 42, 42)',
+    'black': 'rgb(0, 0, 0)',
+    'white': 'rgb(255, 255, 255)'
+};
+
+Object.keys(colorMap).forEach(function(id) {
+    document.getElementById(id).addEventListener('click', function() {
+        color = colorMap[id];
+    });
 });

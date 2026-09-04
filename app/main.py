@@ -10,21 +10,21 @@ app = FastAPI(title="Pixel Battle")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-clients_accepts=[]
-file_path=os.path.join(os.path.dirname(__file__),"repository","data_pixels.json")
+clients_accepts = []
+file_path = os.path.join(os.path.dirname(__file__),"repository","data_pixels.json")
 
 @app.websocket("/ws")  
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     clients_accepts.append(websocket)
-    with open(file_path, 'r+', encoding='utf-8') as file:
+    with open(file_path, 'r+', encoding ='utf-8') as file:
         data_json = json.load(file)
         for dat in data_json:
             await websocket.send_json(dat)
     
     try:
         while True: 
-            object=await websocket.receive_json()
+            object = await websocket.receive_json()
             for client in clients_accepts:
                 if client != websocket:
                     await client.send_json(object)
@@ -45,8 +45,8 @@ async def websocket_endpoint(websocket: WebSocket):
                 if not found:
                     data.append(object) 
 
-                with open(file_path, 'w', encoding='utf-8') as file:
-                    json.dump(data, file, indent=5, ensure_ascii=False)
+                with open(file_path, 'w', encoding ='utf-8') as file:
+                    json.dump(data, file, indent = 5, ensure_ascii = False)
 
     except WebSocketDisconnect:
         if websocket in clients_accepts:
